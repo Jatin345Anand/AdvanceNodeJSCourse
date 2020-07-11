@@ -12,6 +12,7 @@ const slugs = dataObj.map((el) => slugify(el.title, {
     locale: 'vi' // language code of the locale to use 
 }));
 console.log(slugs);
+// process.nextTick();
 const server = http.createServer((req, res) => {
     const pathName = req.url;
     if (pathName === '/' || pathName === '/overview') {
