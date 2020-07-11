@@ -1,0 +1,90 @@
+Vinti Ma’am Doudts
+1.
+
+ Given a string mathematical expression, return true if redundant brackets are present in the expression. Brackets are redundant if there is nothing inside the bracket or more than one pair of brackets are present.
+
+Assume the given string expression is balanced and contains only one type of bracket i.e. ().
+
+Note: You will not get partial score for this problem. You will get marks only if all test cases are passed.
+
+Input Format :((a + b)) 
+
+OutPut:true
+Input Format :(a+b) 
+Output Format :false
+
+
+2.
+In a given Generic Tree, replace each node with its depth value. You need to just update the data of each node, no need to return or print anything.
+
+Input format :
+
+Line 1 : Elements in level order form separated by space (as per done in class). Order is -
+
+Root_data, n (No_Of_Child_Of_Root), n children, and so on for every element
+
+Sample Input 1 :
+
+10 3 20 30 40 2 40 50 0 0 0 0 
+Sample Output 1 : (Level wise, each level in new line)
+
+0 
+1 1 1 
+2 2
+
+3.
+Given a number n, print numbers from 1 to n in dictionary(lexicographical) order.
+Input: 20
+Output:
+
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+2
+20
+3
+4
+5
+6
+7
+8
+9
+
+
+4.
+Given an integer n, you need to print all numbers less than n which are having digits only 2 or 5 or both.
+Print every number in new line. Order of numbers doesn't matter.
+Input format :Integer value
+Output Format:Required numbers in different lines
+Input
+10
+Output:
+2
+5
+Input:
+60 
+Output:
+2
+5
+22
+25
+52
+55
+
+
+
+
+
+
+
+
+
+
+
