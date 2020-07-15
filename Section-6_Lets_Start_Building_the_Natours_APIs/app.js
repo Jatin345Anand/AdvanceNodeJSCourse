@@ -4,7 +4,11 @@ const fs = require('fs');
 const morgan = require('morgan');
 const userRouter = require('./routes/userRoutes');
 // 1. add middlewares
-app.use(morgan('tiny'));
+if (process.env.NODE_ENV == 'developement') {
+    app.use(morgan('dev'));
+} else {
+    app.use(morgan('tiny'));
+}
 app.use(express.json());
 // http://localhost:3000/img/Screenshot%202020-07-11%20at%206.06.11%20PM.png
 // http://127.0.0.1:3000/img/Screenshot%202020-07-15%20at%206.13.23%20PM.png
