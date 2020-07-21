@@ -148,11 +148,30 @@ exports.getImagesStats = async(req, res) => {
             },
             {
                 $group: {
-                    _id: null,
+                    // _id: null,
+                    // _id: '$difficulty',
+                    // _id: '$ratingAverage',
+                    _id: {
+                        $toUpper: '$difficulty'
+                    },
+                    numImage: { $sum: 1 },
+                    numRating: { $sum: '$ratingQuantity' },
                     avgRating: { $avg: '$ratingAverage' },
                     avgPrice: { $avg: '$price' },
                     minPrice: { $min: '$price' },
                     maxPrice: { $max: '$price' }
+                }
+            },
+            {
+                $sort: {
+                    avgPrice: 1
+                }
+            },
+            {
+                $match: {
+                    _id: {
+                        $ne: "EASY"
+                    }
                 }
             }
         ]);
@@ -166,6 +185,71 @@ exports.getImagesStats = async(req, res) => {
         return res.status(400).json({
             status: 'fail',
             message: 'A Image could not be stated on Image DB!',
+            err: {
+                err
+            }
+        });
+    }
+}
+exports.getMonthlyPlan = async(req, res) => {
+    try {
+        // http://127.0.0.1:3000/api/v1/images/image-monthy-plan/2021
+        const year = req.params.year * 1;
+        console.log('year', year);
+        const image = await Image.aggregate([{
+                $unwind: '$startDates'
+            },
+            {
+                $match: {
+                    startDates: {
+                        $gte: new Date(`${year}-01-01`),
+                        $lte: new Date(`${year}-12-31`)
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: {
+                        $month: '$startDates'
+                    },
+                    numImageStarts: {
+                        $sum: 1
+                    },
+                    images: {
+                        $push: '$name'
+                    }
+                }
+            },
+            {
+                $addFields: {
+                    month: "$_id"
+                }
+            },
+            {
+                $project: {
+                    _id: 0
+                }
+            },
+            {
+                $sort: {
+                    numImageStarts: 1
+                }
+            },
+            {
+                $limit: 12
+            }
+        ]);
+        return res.status(200).json({
+            status: 'success',
+            data: {
+                image
+            }
+        });
+
+    } catch (err) {
+        return res.status(400).json({
+            status: 'fail',
+            message: 'No found!',
             err: {
                 err
             }
