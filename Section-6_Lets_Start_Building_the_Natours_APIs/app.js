@@ -3,6 +3,7 @@ const app = express();
 const fs = require('fs');
 const morgan = require('morgan');
 const userRouter = require('./routes/userRoutes');
+// mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
 // 1. add middlewares
 if (process.env.NODE_ENV == 'developement') {
     app.use(morgan('dev'));
